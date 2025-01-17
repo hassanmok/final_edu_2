@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    text-decoration: none;
+  }
+
+  #bar_right{
+    margin-left: 5%;
+  }
+  #right_bar a {
+    color: white; /* Set initial color */
+    transition: color 0.3s ease; /* Smooth transition */
+  }
+
+  #right_bar a:hover {
+    color: #FF20BC; /* Change to black on hover */
+  }
+  #logout {
+    background-color: #FF20BC; /* Set initial color */
+    transition: color 0.3s ease;
+  }
+  #logout:hover{
+    background-color: white; /* Set initial color */
+  }
+  #bottom_main{
+    background-color: white;
+    transition: color 0.3s ease;
+  }
+
+  #bottom_main:hover{
+    background-color: #000000;
+    color: #fff;
+  }
+
+  #b_bar_1{
+    margin-top: 1rem;
+    font-size: 1vw;
+  }
+  #cuor_card:hover{
+    box-shadow: 0 1px 4px #000000;
+  }
+
+  #chall_prop:hover{
+    box-shadow: 4px 6px 4px #FF20BC;
+  }
+
+  #loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#loading-screen video {
+    width: 120%;
+}
+
+tr, th{
+  background-color: gray;
+}
+tr{
+  border-color: white;
+}
+
+.gradient-custom {
+  /* fallback for old browsers */
+  background: #6a11cb;
+  
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+  
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+  }
+
+
+
+
+
+  /* From Uiverse.io by Priyanshu02020 */ 
+#heart {
+  display: none;
+}
+
+.like-button {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  width: 136px;
+  border-radius: 16px;
+  border: none;
+  background-color: #ffffff;
+  overflow: hidden;
+  box-shadow:
+    inset -2px -2px 5px rgba(255, 255, 255, 0.2),
+    inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+    4px 4px 10px rgba(0, 0, 0, 0.4),
+    -2px -2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.like {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.like-icon {
+  fill: #000000;
+  height: 28px;
+  width: 28px;
+}
+
+.like-text {
+  color: #000000;
+  font-size: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.like-count {
+  position: absolute;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  font-size: 16px;
+  border-left: 2px solid #000000;
+  transition: all 0.5s ease-out;
+}
+
+.like-count.two {
+  transform: translateY(40px);
+}
+
+.on:checked ~ .like .like-icon {
+  fill: #FF20BC;
+  animation: enlarge 0.2s ease-out 1;
+  transition: all 0.2s ease-out;
+}
+
+.on:checked ~ .like-count.two {
+  transform: translateX(0);
+  color: #000000;
+}
+
+.on:checked ~ .like-count.one {
+  transform: translateY(-40px);
+}
+
+@keyframes enlarge {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+
+  .icon_socal{
+    transition: color 0.3s ease;
+  }
+  .icon_socal:hover{
+    color: #FF20BC;
+  }
+
+
+
+
+
+#JOIN{
+  background-color: #FF00BF;
+  transition: color 0.3s ease;
+}
+#JOIN:hover{
+  background-color: white;
+  color: #FF20BC;
+}
+
+
+@keyframes moveIcons {
+  0% {
+    transform: translateX(0); /* Start from outside the left edge */
+}
+100% {
+    transform: translateX(100%); /* End at the starting position to loop smoothly */
+}
+}
