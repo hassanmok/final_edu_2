@@ -12,6 +12,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+        <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
         <title>Learn</title>
         <link rel="icon" type="image/png" sizes="512x512" href="{% static 'images/spider_logo2.png' %}">
 </head>
@@ -299,14 +300,22 @@
                 <h1 class="ml-2 text-xl">&gt;</h1>
             </div>
         </div>
+        <script>
+            (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="mpcuVjSm07-LpvVUdvNNL";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+            </script>
+    
+
 
 
         </div>
         <div id="input_output" class="mr-4 w-[50rem] h-[21rem]">
+    
+            
             <div>
                 <h1 style="background:black;color:white; margin: 0 0 0 0.5rem;padding:0 0 0 0.5rem"> Input</h1>
                 <div style="border: 10px solid black;margin: 0 0 0.5rem 0.5rem;border-radius: 0 0 1.5rem 1.5rem;">
-                    <textarea name="" id="" cols="90" rows="10" style="margin:0 0 0 0.5rem"></textarea>
+                    <textarea id="python-code" placeholder="Write Python code here..." cols="90" rows="10" style="margin:0 0 0 0.5rem"></textarea>
+                    <button type="button" class="btn btn-dark" style="display: flex; justify-self: end; background-color: black; border: 0; border-radius: 0" onclick="runPython()">Run</button>
                 </div>
             </div>
 
@@ -315,9 +324,50 @@
             <div>
                 <h1 style="background:black;color:white;margin: 0 0 0 0.5rem;padding:0 0 0 0.5rem"> Output</h1>
                 <div style="border: 10px solid black;margin: 0 0 0 0.5rem;border-radius: 0 0 1.5rem 1.5rem;">
-                    <textarea name="" id="" cols="90" rows="10" style="margin:0 0 0 0.5rem"></textarea>
+                    <textarea name="" id="output" cols="90" rows="8" style="margin:0 0 0 0.5rem"></textarea>
                 </div>
             </div>
+            
+
+    <script>
+        let pyodideReadyPromise;
+
+        // Load Pyodide
+        async function initializePyodide() {
+            const pyodide = await loadPyodide();
+            return pyodide;
+        }
+
+        // Wait for Pyodide to initialize
+        document.addEventListener("DOMContentLoaded", () => {
+            pyodideReadyPromise = initializePyodide();
+        });
+
+        async function runPython() {
+            const pyodide = await pyodideReadyPromise;
+            const code = document.getElementById("python-code").value;
+            const outputElement = document.getElementById("output");
+
+            try {
+                // Capture stdout
+                pyodide.runPython(`
+                    import sys
+                    from io import StringIO
+                    sys.stdout = StringIO()
+                `);
+
+                // Run the user code
+                pyodide.runPython(code);
+
+                // Retrieve the captured output
+                const output = pyodide.runPython("sys.stdout.getvalue()");
+                outputElement.textContent = output || "No output.";
+            } catch (err) {
+                // Handle errors
+                outputElement.textContent = "Error: " + err.message;
+            }
+        }
+    </script>
 
         </div>
 
