@@ -2,9 +2,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-
+from django.core.paginator import Paginator
 from django.urls import reverse
-from .models import User
+from .models import User, Course
 # Create your views here.
 
 
@@ -84,4 +84,12 @@ def profile(request):
     return render(request, "profile.html")
 
 def learn(request):
-    return render(request, "join.html")
+    course = Course.objects.get(course_name="python_for_begginer")
+    document = course.course_document
+
+    document_lines = document.splitlines()
+    paginator = Paginator(document_lines, 20)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "join.html", {"page_obj": page_obj})

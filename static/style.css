@@ -199,3 +199,29 @@ tr{
     transform: translateX(100%); /* End at the starting position to loop smoothly */
 }
 }
+
+
+body {
+  font-family: Arial, sans-serif;
+}
+.content {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f9f9f9;
+  max-height: 30rem;
+  overflow: auto;
+}
+.pagination {
+  margin-top: 20px;
+}
+.pagination a {
+  margin: 0 5px;
+  padding: 5px 10px;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.pagination a.active {
+  background-color: #007bff;
+  color: white;
+}
