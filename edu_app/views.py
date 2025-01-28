@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.urls import reverse
-from .models import User, Course
+from .models import User, Course, Comment
 # Create your views here.
 
 
@@ -12,7 +12,8 @@ def index(request):
     return render(request, "index.html")
 
 def courses(request):
-    return render(request, "courses.html")
+    all_comment = Comment.objects.all()
+    return render(request, 'courses.html', {'all_comment': all_comment})
 
 def challenges(request):
     return render(request, "challenges.html")
@@ -93,3 +94,16 @@ def learn(request):
     page_obj = paginator.get_page(page_number)
 
     return render(request, "join.html", {"page_obj": page_obj})
+
+
+def add_comment(request):
+    if request.method == "POST":
+        user = request.user
+        comment = request.POST["comment"]
+        course = Course.objects.get(course_name="python_for_begginer")
+        the_comment = Comment(user = user, comment_text = comment, course = course)
+        the_comment.save()
+        return HttpResponseRedirect(reverse('courses'))
+    return HttpResponseRedirect(reverse('courses'))
+    
+
