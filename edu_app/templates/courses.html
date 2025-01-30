@@ -146,17 +146,65 @@
       <div id="add_comment">
         <form action="{% url 'add_comment' %}" method="post">
           {% csrf_token %}
-          <label for="exampleInputEmail1">Add comment:</label>
-          <input type="text" class="form-control"  placeholder="comment" name="comment">
-          <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-      </div>
+          <label style="margin: 1rem; display:block;font-size: 3vw;" for="exampleInputEmail1">Add comment:</label>
+          <input style="margin: 1rem;padding: 2rem;width: 75%;box-shadow: 7px 7px 15px #bbcfda,-4px -4px 13px #fff, inset 4px 4px 8px rgba(209, 217, 230, 0.2),  inset -8px -8px 8px rgba(255, 255, 255, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.3); 
+                background: #e8eff5;border-radius: 3rem;" type="text"   placeholder="comment" name="comment">
 
-      <div id="show_comment" class="ml-6">
+
+
+ {% comment %} <button  type="submit" >Save</button>  {% endcomment %}
+ 
+<button type="submit"
+  class="relative px-8 py-3 bg-black text-white font-semibold rounded-lg border-2 border-purple-500 hover:border-purple-400 transition-all duration-300 hover:shadow-[0_0_20px_10px_rgba(168,85,247,0.6)] active:scale-95 active:shadow-[0_0_10px_5px_rgba(168,85,247,0.4)] group"
+>
+  <span class="flex items-center space-x-2">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      fill="none"
+      class="w-6 h-6 text-purple-500 group-hover:text-white transition-colors duration-300"
+    >
+      <path
+        d="M5 13l4 4L19 7"
+        stroke-width="2"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+    <span>sent</span>
+  </span>
+  <span
+    class="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-purple-500/20 to-indigo-500/20"
+  ></span>
+</button>
+
+
+
+
+
+        </form>
+
+
+      </div>
+      <div style="margin: 1rem;padding: 1rem;" id="show_comment" class="ml-6">
         {% for i in all_comment %}
-        <h1>{{ i.user }}</h1>
-        <h1>{{ i.comment_text }}</h1>
-        <h1>{{ i.created_at }}</h1>
+        <aside style="width: 90%;margin: 1rem 3rem 1rem 3rem;;" class="bg-black text-white p-6 rounded-lg w-full  font-mono">
+          <div class="flex justify-between items-center">
+            <div class="flex space-x-2 text-red-500">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <p class="text-sm">{{ i.created_at }}</p>
+          </div>
+          <div class="mt-4">
+            <p class="text-green-400">$ {{ i.user }}</p>
+            <p class="text-white">{{ i.comment_text }}</p>
+            <p class="text-green-400">$</p>
+          </div>
+        </aside>
         {% endfor %}
       </div>
       
