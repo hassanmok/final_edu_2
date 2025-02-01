@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.urls import reverse
 from .models import User, Course, Comment
+from django.shortcuts import redirect, render
+import random
 # Create your views here.
 
 
@@ -106,4 +108,9 @@ def add_comment(request):
         return HttpResponseRedirect(reverse('courses'))
     return HttpResponseRedirect(reverse('courses'))
     
+
+
+
+def test(request):
+    return render(request, "test.html")
 

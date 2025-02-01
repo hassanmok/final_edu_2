@@ -16,7 +16,7 @@
         <title>Learn</title>
         <link rel="icon" type="image/png" sizes="512x512" href="{% static 'images/spider_logo2.png' %}">
 </head>
-<body style="overflow-y: hidden">
+<body> <!--style="overflow-y: hidden" -->
     <div id="upper_bar" class="bg-black p-8 flex justify-between items-center p-0">
         <div id="left_bar" class="ml-8 my-2">
           <a href="#">
@@ -42,41 +42,43 @@
             {% endif %}
         </div>
     </div>
-    <div class="flex justify-between m-4">
+    <div id="all_page" class="flex justify-between m-4"> <!--no display none-->
         <div id="document" style="width: 50rem; display: flex; flex-direction: column; justify-content: space-between;">
-            <div style="overflow: scroll;overflow-x: hidden; height: 30rem; border: 1px solid black; padding: 5px; background-color: #D9D9D9;"> 
+            <div style="overflow: scroll; height: 30rem; border: 1px solid black; padding: 5px; background-color: #D9D9D9;"> 
                 {% for line in page_obj %}
                     <p>{{ line|safe }}</p>
                 {% endfor %}
-            </div>
-
-            <div class="flex justify-center m-4">
-            <div class="flex justify-center m-4" style="background-color: #D9D9D9;">
-                <div class="pagination" style="margin: 10px;">
-                    {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                    {% endif %}
-            
-                    {% for num in page_obj.paginator.page_range %}
-                        <a href="?page={{ num }}" class="{% if page_obj.number == num %}active{% endif %}">
-                            {{ num }}
+                {% if not page_obj.has_next %}
+                        <div class="mt-20">
+                        <a href="{% url 'test' %}">
+                            <button style=" background-color: #04AA6D; padding: 4px; color: white;">Click here to test your self</button>
                         </a>
-                    {% endfor %}
-            
-                    {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}">Next</a>
-                    {% endif %}
-                </div>
+                        </div>
+                {% endif %}
             </div>
+                    <div class="flex justify-center m-4">
+                        <div class="flex justify-center m-4" style="background-color: #D9D9D9;">
+                            <div class="pagination" style="margin: 10px;">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                                {% endif %}
+                        
+                                {% for num in page_obj.paginator.page_range %}
+                                    <a href="?page={{ num }}" class="{% if page_obj.number == num %}active{% endif %}">
+                                        {{ num }}
+                                    </a>
+                                {% endfor %}
+                        
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
         </div>
-        <script>
-            (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="mpcuVjSm07-LpvVUdvNNL";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-            </script>
-    
-
-
-
-        </div>
+            
         <div id="input_output" class="mr-4 w-[50rem] h-[21rem]">
     
             
@@ -98,15 +100,20 @@
             </div>
             
 
-    <script>
-        let pyodideReadyPromise;
 
+        </div>
+
+    </div>
+    <script>
+        
+  let pyodideReadyPromise;
+        
         // Load Pyodide
         async function initializePyodide() {
             const pyodide = await loadPyodide();
             return pyodide;
         }
-
+        
         // Wait for Pyodide to initialize
         document.addEventListener("DOMContentLoaded", () => {
             pyodideReadyPromise = initializePyodide();
@@ -116,18 +123,18 @@
             const pyodide = await pyodideReadyPromise;
             const code = document.getElementById("python-code").value;
             const outputElement = document.getElementById("output");
-
+            
             try {
                 // Capture stdout
                 pyodide.runPython(`
-                    import sys
-                    from io import StringIO
-                    sys.stdout = StringIO()
+                import sys
+                from io import StringIO
+                sys.stdout = StringIO()
                 `);
-
+                
                 // Run the user code
                 pyodide.runPython(code);
-
+                
                 // Retrieve the captured output
                 const output = pyodide.runPython("sys.stdout.getvalue()");
                 outputElement.textContent = output || "No output.";
@@ -136,11 +143,10 @@
                 outputElement.textContent = "Error: " + err.message;
             }
         }
-    </script>
-
-        </div>
-
-    </div>
     
+        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="mpcuVjSm07-LpvVUdvNNL";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+
+    </script>
+    <script src="{% static 'script.js' %}"></script>
 </body>
 </html>

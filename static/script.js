@@ -118,5 +118,7 @@ var typed = new Typed("#text_mok", {
     </p>`
 
   }
+
+
  
   
