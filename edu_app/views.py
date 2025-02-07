@@ -114,3 +114,57 @@ def add_comment(request):
 def test(request):
     return render(request, "test.html")
 
+
+def result(request):
+    if request.method == "POST":
+        count = 0
+        falses = []
+        q_1 = request.POST.get("booleanValue1")
+        q_2 = request.POST.get("2.")
+        q_3 = request.POST.get("3.")
+        q_4 = request.POST.get("4.")
+        q_5 = request.POST.get("5.")
+        q_6 = request.POST.get("6.")
+        q_7 = request.POST.get("7.").strip()
+        q_8 = request.POST.get("8.")
+        if q_1 == "False":
+            count += 1
+        else:
+            falses.append("The first question is flase not true :(")
+        if q_2 == "x = 10":
+            count += 1
+        else:
+            falses.append("The correct answer of second question is x = 10")
+        if q_3 == "HelloHelloHello":
+            count += 1
+        else:
+            falses.append("The correct answer of third question is HelloHelloHello")
+        if q_4 == "False":
+            count += 1
+        else:
+            falses.append("The correct answer of fourth question is False")
+
+        if q_5 == "input()":
+            count += 1
+        else:
+            falses.append("The correct answer of fifth question is input()")
+        if q_6 == "15":
+            count += 1
+        else:
+            falses.append("The correct answer of sixth question is 15")
+        if q_7 == "0 2 4":
+            count += 1
+        else:
+            falses.append("The correct answer of seventh question is:\n0\n2\n4")
+        if q_8 == "def":
+            count += 1
+        else:
+            falses.append("The correct answer of eighth question is def")
+        return render(request, "result.html",{
+            "count": count,
+            "falses": falses
+        })
+        
+        
+    return render(request, "test.html")
+

@@ -43,7 +43,8 @@
         </div>
     </div>
     <div id="test">
-        <form action="{% url 'test' %}" method="post">
+        <form action="{% url 'result' %}" method="post">
+          {% csrf_token %}
         <div style="margin: 1rem; padding: 1rem;" id="show_comment" class="ml-6">
             <aside style="width: 90%;margin: 1rem 3rem 1rem 3rem;;" class="bg-black text-white p-6 rounded-lg w-full  font-mono">
               <div class="flex justify-between items-center">
@@ -54,7 +55,7 @@
                 </div>
               </div>
               <div class="mt-4">
-                <h1 style="font-size: 25px; margin-bottom: 5px;">Q1:</h1>
+                <h1 style="font-size: 25px; margin-bottom: 5px;">1.</h1>
                 <p class="text-white">x = 3<br>
                                         y = 5<br>
                                         c = "coding"<br>
@@ -63,13 +64,208 @@
               </div>
               <div class="text-white">
                 <label>
-                    <input type="radio" name="booleanValue" value="true"> True
+                    <input type="radio" name="booleanValue1" value="True"> True
                 </label>
+                <br>
                 <label>
-                    <input type="radio" name="booleanValue" value="false"> False
+                    <input type="radio" name="booleanValue1" value="False"> False
                 </label>                
               </div>
             </aside>
+          </div>
+          <div style="margin: 1rem; padding: 1rem;" id="show_comment" class="ml-6">
+            <aside style="width: 90%;margin: 1rem 3rem 1rem 3rem;;" class="bg-black text-white p-6 rounded-lg w-full  font-mono">
+              <div class="flex justify-between items-center">
+                <div class="flex space-x-2 text-red-500">
+                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <h1 style="font-size: 25px; margin-bottom: 5px;">2.</h1>
+                <p class="text-white">What is the correct way to declare a variable in Python?</p>
+              </div>
+              <div class="text-white">  <!-- a) var x = 10
+                b) x := 10
+                c) x = 10
+                d) int x = 10-->
+                <label>
+                  <input type="radio" name="2." value="var x = 10"> var x = 10
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="2." value="x := 10"> x := 10
+                </label>
+                <br>
+                <label>
+                  <input type="radio" name="2." value="x = 10"> x = 10
+              </label> 
+              <br> 
+              <label>
+                <input type="radio" name="2." value="int x = 10-->"> int x = 10-->
+            </label>                  
+              </div>
+            </aside>
+          </div>
+          <div style="margin: 1rem; padding: 1rem;" id="show_comment" class="ml-6">
+            <aside style="width: 90%;margin: 1rem 3rem 1rem 3rem;;" class="bg-black text-white p-6 rounded-lg w-full  font-mono">
+              <div class="flex justify-between items-center">
+                <div class="flex space-x-2 text-red-500">
+                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <h1 style="font-size: 25px; margin-bottom: 5px;">3.</h1>
+                <p class="text-white">What will print(3 * "Hello") output?</p>
+              </div>
+              <div class="text-white">
+                <label>
+                  <input type="radio" name="3." value="Hello Hello Hello" > Hello Hello Hello
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="3." value="HelloHelloHello"> HelloHelloHello
+                </label>
+                <br>
+                <label>
+                  <input type="radio" name="3." value="3Hello"> 3Hello
+              </label> 
+              <br> 
+              <label>
+                <input type="radio" name="3." value="Error"> Error
+            </label>                  
+              </div>
+            </aside>
+          </div>
+          <div style="margin: 1rem; padding: 1rem;" id="show_comment" class="ml-6">
+            <aside style="width: 90%;margin: 1rem 3rem 1rem 3rem;;" class="bg-black text-white p-6 rounded-lg w-full  font-mono">
+              <div class="flex justify-between items-center">
+                <div class="flex space-x-2 text-red-500">
+                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <h1 style="font-size: 25px; margin-bottom: 5px;">4.</h1>
+                <p class="text-white">The elif statement is used for looping in Python.</p>
+              </div>
+              <div class="text-white">
+                <label>
+                    <input type="radio" name="4." value="True"> True
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="4." value="False"> False
+                </label>                
+              </div>
+            </aside>
+          </div>
+          <div style="margin: 1rem; padding: 1rem;" id="show_comment" class="ml-6">
+            <aside style="width: 90%;margin: 1rem 3rem 1rem 3rem;;" class="bg-black text-white p-6 rounded-lg w-full  font-mono">
+              <div class="flex justify-between items-center">
+                <div class="flex space-x-2 text-red-500">
+                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <h1 style="font-size: 25px; margin-bottom: 5px;">5.</h1>
+                <p class="text-white">Which of the following is used to take user input in Python?</p>
+              </div>
+              <div class="text-white">
+                <label>
+                    <input type="radio" name="5." value="input()"> input()
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="5." value="false"> scan()
+                </label>   
+                <br>
+                <label>
+                    <input type="radio" name="5." value="false"> read()
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="5." value="false"> get()
+                </label>            
+              </div>
+            </aside>
+          </div>
+          <div style="margin: 1rem; padding: 1rem;" id="show_comment" class="ml-6">
+            <aside style="width: 90%;margin: 1rem 3rem 1rem 3rem;;" class="bg-black text-white p-6 rounded-lg w-full  font-mono">
+              <div class="flex justify-between items-center">
+                <div class="flex space-x-2 text-red-500">
+                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <h1 style="font-size: 25px; margin-bottom: 5px;">6.</h1>
+                <p class="text-white">What will be the output of the following code?<br>
+                  x = 5<br>
+                  y = "10"<br>
+                  print(x + int(y))
+                </p>
+              </div>
+              <div class="text-white">
+                <label>
+                    <input style="color: black;" type="text" name="6.">
+                </label>               
+              </div>
+            </aside>
+          </div>
+          <div style="margin: 1rem; padding: 1rem;" id="show_comment" class="ml-6">
+            <aside style="width: 90%;margin: 1rem 3rem 1rem 3rem;;" class="bg-black text-white p-6 rounded-lg w-full  font-mono">
+              <div class="flex justify-between items-center">
+                <div class="flex space-x-2 text-red-500">
+                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <h1 style="font-size: 25px; margin-bottom: 5px;">7.</h1>
+                <p class="text-white">for i in range(3):<br>
+                  print(i * 2)<br>
+                  What will be the output?
+                </p>
+              </div>
+              <div class="text-white">
+                <label>
+                    <textarea rows="4" style="color: black;" type="text" name="7."></textarea>
+                </label>               
+              </div>
+            </aside>
+          </div>
+          <div style="margin: 1rem; padding: 1rem;" id="show_comment" class="ml-6">
+            <aside style="width: 90%;margin: 1rem 3rem 1rem 3rem;;" class="bg-black text-white p-6 rounded-lg w-full  font-mono">
+              <div class="flex justify-between items-center">
+                <div class="flex space-x-2 text-red-500">
+                  <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <h1 style="font-size: 25px; margin-bottom: 5px;">8.</h1>
+                <p class="text-white">What the keyword that is used to define a function in Python.
+                </p>
+              </div>
+              <div class="text-white">
+                <label>
+                    <input style="color: black;" type="text" name="8.">
+                </label>               
+              </div>
+            </aside>
+          </div>
+          <div class="mb-8" style="display: flex; justify-content: center;">
+            <button style="color: white; background-color: black; padding: 8px;" class="rounded-xl text-2xl" type="submit">Submit</button>
           </div>
         </form>
 
