@@ -43,10 +43,42 @@
         </div>
     </div>
     <div id="result">
-        <h1>winning ^_^</h1>
-        <h2> your result is 8/{{ count }}</h2>
+      
+
+      <div class="progress" style="width: 100%; max-width: 400px;">
+        <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated"  
+            role="progressbar" aria-valuemin="0" aria-valuemax="100" 
+            style="width: 0%; height: 30px; background-color: green; transition: width 0.5s ease-in-out;">
+            <span id="progress-text"><span id="current-count">{{ count|default:"0" }}</span>/10 Complete</span>
+        </div>
+    </div>
+
+
+
+
         {% for i in falses %}
-        <h1>{{ i }}</h1>
+        <div class="container">
+          <div class="terminal_toolbar">
+            <div class="butt">
+              <button style="background:#ee411a" class="btn btn-color"></button>
+              <button class="btn1"></button>
+              <button class="btn1"></button>
+            </div>
+            <p class="user">spidercode@admin: ~</p>
+            <div class="add_tab">+</div>
+          </div>
+          <div class="terminal_body">
+            <div class="terminal_prompt">
+              <span class="terminal_user">@admin:</span>
+              <span class="terminal_location">~</span>
+              <span class="terminal_bling">$</span>
+              <span class="terminal_cursor"></span>
+            </div>
+            <div class="terminal_output">
+              <pre class="output_text">{{ i }}</pre>
+            </div>
+          </div>
+        </div>
         {% endfor %}
     </div>
 

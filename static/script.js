@@ -120,5 +120,30 @@ var typed = new Typed("#text_mok", {
   }
 
 
- 
-  
+
+
+
+  document.getElementById("update-btn").addEventListener("click", function() {
+    let countElement = document.getElementById("current-count");
+    let progressBar = document.getElementById("progress-bar");
+
+    if (!countElement || !progressBar) {
+        console.error("❌ ERROR: Elements not found!");
+        return;
+    }
+
+    let countValue = parseInt(countElement.textContent.trim(), 10);
+    if (isNaN(countValue)) {
+        console.error("❌ ERROR: Invalid count value:", countElement.textContent);
+        countValue = 0; // Default to 0 if invalid
+    }
+
+    let maxValue = 10;  // Adjust this as needed
+    let progressPercentage = (countValue / maxValue) * 100;
+
+    console.log(`✅ Updating progress to: ${progressPercentage}%`);
+
+    // ✅ Apply the width change CORRECTLY
+    progressBar.style.width = progressPercentage + "%";
+    progressBar.setAttribute("aria-valuenow", progressPercentage);
+});

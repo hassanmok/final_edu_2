@@ -115,6 +115,7 @@ def test(request):
     return render(request, "test.html")
 
 
+
 def result(request):
     if request.method == "POST":
         count = 0
@@ -127,6 +128,10 @@ def result(request):
         q_6 = request.POST.get("6.")
         q_7 = request.POST.get("7.").strip()
         q_8 = request.POST.get("8.")
+        q_9 = request.POST.get("9.")
+        q_10 = request.POST.get("10.")
+        q_11 = request.POST.get("11.")
+        q_12 = request.POST.get("12.")
         if q_1 == "False":
             count += 1
         else:
@@ -160,6 +165,22 @@ def result(request):
             count += 1
         else:
             falses.append("The correct answer of eighth question is def")
+        if q_9 == "2":
+            count += 1
+        else:
+            falses.append("The correct answer of 9. question is 2")
+        if q_10 == "y":
+            count += 1
+        else:
+            falses.append("The correct answer of 10. question is y")
+        if q_11 == "HAHW":
+            count += 1
+        else:
+            falses.append("The correct answer of 11. question is Hello, Alice! Hello, World!")
+        if q_12 == "True":
+            count += 1
+        else:
+            falses.append("The correct answer of 12. question is True")
         return render(request, "result.html",{
             "count": count,
             "falses": falses
