@@ -16,4 +16,5 @@ urlpatterns = [
     path("add_comment", views.add_comment, name="add_comment"),
     path("test", views.test, name="test"),
     path("result", views.result, name="result"),
+    path("random", views.random_problem, name="random"),
 ]

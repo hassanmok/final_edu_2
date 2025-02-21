@@ -189,3 +189,11 @@ def result(request):
         
     return render(request, "test.html")
 
+
+
+
+def random_problem(request):
+    course_name = request.GET.get("course_name")
+
+    return render(request, "random_problem.html", {"course_name": course_name})
+
