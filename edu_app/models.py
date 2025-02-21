@@ -20,3 +20,9 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+class Random_problem(models.Model):
+    random_id = models.AutoField(primary_key=True)
+    course_name = models.CharField(max_length=100)
+    course_problems = models.TextField()
+
+

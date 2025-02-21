@@ -44,6 +44,9 @@
     {% if course_name == "python" %}
         <div>
             <h1>{{ course_name }}</h1>
+            {% for i in ff %}
+                <h1> {{ i.course_problems }}</h1>
+            {% endfor %}
         </div>
     {% endif %}
     {% if course_name == "c" %}

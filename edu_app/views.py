@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.urls import reverse
-from .models import User, Course, Comment
+from .models import User, Course, Comment, Random_problem
 from django.shortcuts import redirect, render
 import random
 # Create your views here.
@@ -194,6 +194,9 @@ def result(request):
 
 def random_problem(request):
     course_name = request.GET.get("course_name")
-
-    return render(request, "random_problem.html", {"course_name": course_name})
+    problems = []
+    ff = Random_problem.objects.filter(course_name="python")
+    
+    return render(request, "random_problem.html", {"course_name": course_name,
+                                                   "ff": ff})
 
