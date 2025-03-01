@@ -7,6 +7,12 @@ from django.urls import reverse
 from .models import User, Course, Comment, Random_problem
 from django.shortcuts import redirect, render
 import random
+
+import pytest
+import tempfile
+import os
+from django.http import JsonResponse
+import shutil
 # Create your views here.
 
 
@@ -200,3 +206,52 @@ def random_problem(request):
     return render(request, "random_problem.html", {"course_name": course_name,
                                                    "ff": ff})
 
+
+def test_code(request):
+    if request.method == "POST":
+        user_code = request.POST.get("user_code")
+
+        # Define the test case as a string
+        test_code = f"""
+import pytest
+from user_script import add_numbers
+
+def test_add_numbers():
+    assert add_numbers(2, 3) == 5
+    assert add_numbers(-1, 1) == 0
+    assert add_numbers(0, 0) == 0
+"""
+
+        # Create a temporary directory to store the user script
+        temp_dir = tempfile.mkdtemp()
+        script_path = os.path.join(temp_dir, "user_script.py")
+        test_path = os.path.join(temp_dir, "test_script.py")
+
+        try:
+            # Write the user's function to a temporary file
+            with open(script_path, "w") as script_file:
+                script_file.write(user_code)
+
+            # Write the pytest test case to a temporary file
+            with open(test_path, "w") as test_file:
+                test_file.write(test_code)
+
+            # Run pytest and capture the results
+            result = os.popen(f"pytest {test_path} --tb=short --disable-warnings").read()
+
+            if "failed" in result:
+               return render(request, "random_problem.html", {
+                    "status": "error",
+                    "message": "Test failed",
+                    "course_name": "python",
+                    "details": result})
+            else:
+                return render(request, "random_problem.html", {"status": "success",
+                                                               "course_name": "python", "message": "Test passed"})
+        finally:
+            # Clean up temporary files
+            os.remove(script_path)
+            os.remove(test_path)
+            shutil.rmtree(temp_dir, ignore_errors=True)
+
+    return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)

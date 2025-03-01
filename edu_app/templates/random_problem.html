@@ -44,9 +44,30 @@
     {% if course_name == "python" %}
         <div>
             <h1>{{ course_name }}</h1>
+            <!--
+            
             {% for i in ff %}
                 <h1> {{ i.course_problems }}</h1>
             {% endfor %}
+            
+            -->
+            <h1>Write function for sum two variable and return it: </h1>
+            <form action="{% url 'test_code' %}" method="post">
+                {% csrf_token %}
+                <textarea style="border: 2px solid black; margin-left: 20px;" name="user_code" id="" cols="80" rows="20"></textarea>
+                <button>Done</button>
+            </form>
+        </div>
+        <div>
+            
+            {% if status == "error" %}
+                <h1> {{ status }} </h1>
+                <h1>test failed try again</h1>
+            {% elif status == "success" %}
+                <h1> {{ status }} </h1>
+                <h1>good jop test passed !!!</h1>
+            {% endif %}
+
         </div>
     {% endif %}
     {% if course_name == "c" %}
