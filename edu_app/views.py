@@ -200,59 +200,107 @@ def result(request):
 
 def random_problem(request):
     course_name = request.GET.get("course_name")
+    type_of_problem = request.GET.get("type")
     problems = []
     ff = Random_problem.objects.filter(course_name="python")
     
     return render(request, "random_problem.html", {"course_name": course_name,
+                                                   "type_of_problem":type_of_problem ,
                                                    "ff": ff})
 
 
 def test_code(request):
     if request.method == "POST":
         user_code = request.POST.get("user_code")
+        type_of_problem = request.POST.get("type")
+        if type_of_problem == "sum":
 
-        # Define the test case as a string
-        test_code = f"""
-import pytest
-from user_script import add_numbers
+            # Define the test case as a string
+            test_code = f"""
+                import pytest
+                from user_script import add_numbers
 
-def test_add_numbers():
-    assert add_numbers(2, 3) == 5
-    assert add_numbers(-1, 1) == 0
-    assert add_numbers(0, 0) == 0
-"""
+                def test_add_numbers():
+                    assert add_numbers(2, 3) == 5
+                    assert add_numbers(-1, 1) == 0
+                    assert add_numbers(0, 0) == 0
+                """
 
-        # Create a temporary directory to store the user script
-        temp_dir = tempfile.mkdtemp()
-        script_path = os.path.join(temp_dir, "user_script.py")
-        test_path = os.path.join(temp_dir, "test_script.py")
+            # Create a temporary directory to store the user script
+            temp_dir = tempfile.mkdtemp()
+            script_path = os.path.join(temp_dir, "user_script.py")
+            test_path = os.path.join(temp_dir, "test_script.py")
 
-        try:
-            # Write the user's function to a temporary file
-            with open(script_path, "w") as script_file:
-                script_file.write(user_code)
+            try:
+                # Write the user's function to a temporary file
+                with open(script_path, "w") as script_file:
+                    script_file.write(user_code)
 
-            # Write the pytest test case to a temporary file
-            with open(test_path, "w") as test_file:
-                test_file.write(test_code)
+                # Write the pytest test case to a temporary file
+                with open(test_path, "w") as test_file:
+                    test_file.write(test_code)
 
-            # Run pytest and capture the results
-            result = os.popen(f"pytest {test_path} --tb=short --disable-warnings").read()
+                # Run pytest and capture the results
+                result = os.popen(f"pytest {test_path} --tb=short --disable-warnings").read()
 
-            if "failed" in result:
-               return render(request, "random_problem.html", {
-                    "status": "error",
-                    "message": "Test failed",
-                    "course_name": "python",
-                    "details": result})
-            else:
-                return render(request, "random_problem.html", {"status": "success",
-                                                               "course_name": "python", "message": "Test passed"})
-        finally:
-            # Clean up temporary files
-            
-            os.remove(script_path)
-            os.remove(test_path)
-            shutil.rmtree(temp_dir, ignore_errors=True)
+                if "failed" in result:
+                    return render(request, "random_problem.html", {
+                            "status": "error",
+                            "message": "Test failed",
+                            "course_name": "python",
+                            "details": result})
+                else:
+                        return render(request, "random_problem.html", {"status": "success",
+                                                                    "course_name": "python", "message": "Test passed"})
+            finally:
+                # Clean up temporary files
+                os.remove(script_path)
+                os.remove(test_path)
+                shutil.rmtree(temp_dir, ignore_errors=True)
+
+        elif type_of_problem == "2":
+            # Define the test case as a string
+            test_code = f"""
+                import pytest
+                from user_script import add_numbers
+
+                def test_add_numbers():
+                    assert add_numbers(6, 3) == 2
+                    assert add_numbers(-1, 1) == -1
+                    assert add_numbers(10, 2) == 5
+                """
+
+            # Create a temporary directory to store the user script
+            temp_dir = tempfile.mkdtemp()
+            script_path = os.path.join(temp_dir, "user_script.py")
+            test_path = os.path.join(temp_dir, "test_script.py")
+
+            try:
+                # Write the user's function to a temporary file
+                with open(script_path, "w") as script_file:
+                    script_file.write(user_code)
+
+                # Write the pytest test case to a temporary file
+                with open(test_path, "w") as test_file:
+                    test_file.write(test_code)
+
+                # Run pytest and capture the results
+                result = os.popen(f"pytest {test_path} --tb=short --disable-warnings").read()
+
+                if "failed" in result:
+                    return render(request, "random_problem.html", {
+                            "status": "error",
+                            "message": "Test failed",
+                            "course_name": "python",
+                            "details": result})
+                else:
+                        return render(request, "random_problem.html", {"status": "success",
+                                                                    "course_name": "python", "message": "Test passed"})
+            finally:
+                # Clean up temporary files
+                os.remove(script_path)
+                os.remove(test_path)
+                shutil.rmtree(temp_dir, ignore_errors=True)
+
 
     return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)

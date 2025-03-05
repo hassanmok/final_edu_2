@@ -41,6 +41,10 @@ var typed = new Typed("#text_mok", {
     document.getElementById("main_courses_py").style.display = "none";
     document.getElementById("python_cour_beg").style.display = "flex";
   }
+  function show_problem(){
+    document.getElementById("type_of_courses").style.display = "none";
+    document.getElementById("levels_of_problems").style.display = "block";
+  }
 
   window.onload = function() {
     document.getElementById('CERETERS_btn').click();}

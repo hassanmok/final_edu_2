@@ -52,9 +52,10 @@
             
             -->
             <h1>Write function for sum two variable and return it: </h1>
-            <form action="{% url 'test_code' %}" method="post">
+            <form action="{% url 'test_code' %}?type=sum" method="post">
                 {% csrf_token %}
-                <textarea style="border: 2px solid black; margin-left: 20px;" name="user_code" id="" cols="80" rows="20"></textarea>
+                <textarea style="border: 2px solid black; margin-left: 20px;" name="user_code" id="" cols="80" rows="20">def add_numbers(a,b):
+                    </textarea>
                 <button>Done</button>
             </form>
         </div>
