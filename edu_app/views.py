@@ -250,6 +250,7 @@ def test_add_numbers():
                                                                "course_name": "python", "message": "Test passed"})
         finally:
             # Clean up temporary files
+            
             os.remove(script_path)
             os.remove(test_path)
             shutil.rmtree(temp_dir, ignore_errors=True)
