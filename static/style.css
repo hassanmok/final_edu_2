@@ -386,3 +386,30 @@ body {
     background: #ffffff;
   }
 }
+
+.CodeMirror {
+  border: 2px solid black;
+  margin-left: 20px;
+  margin-right: 200px;
+  height: 300px;
+}
+
+.run-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.run-btn:hover {
+  background-color: #218838;
+}
+
+.run-btn:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}

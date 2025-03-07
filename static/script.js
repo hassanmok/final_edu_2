@@ -1,3 +1,14 @@
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize CodeMirror (or another editor)
+  var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+    mode: "python",
+    lineNumbers: true,
+    autoCloseBrackets: true,
+    theme: "default",
+    autoRefresh: true
+  });
+
+});
 
 
 /*
@@ -151,3 +162,5 @@ var typed = new Typed("#text_mok", {
     progressBar.style.width = progressPercentage + "%";
     progressBar.setAttribute("aria-valuenow", progressPercentage);
 });
+
+
