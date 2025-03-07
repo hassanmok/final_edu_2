@@ -209,98 +209,124 @@ def random_problem(request):
                                                    "ff": ff})
 
 
+import os
+import tempfile
+import shutil
+import subprocess
+from django.shortcuts import render
+from django.http import JsonResponse
+
 def test_code(request):
     if request.method == "POST":
         user_code = request.POST.get("user_code")
         type_of_problem = request.POST.get("type")
+        print(type_of_problem)
+
+        # Check if type_of_problem is valid
+        if type_of_problem not in ["sum", "div", "even", "Simple_Calculator","LargestofThreeNumbers"]:
+            return JsonResponse({"status": "error", "message": "Invalid problem type"}, status=400)
+
+        # Define test cases based on the type of problem
         if type_of_problem == "sum":
-
-            # Define the test case as a string
             test_code = f"""
-                import pytest
-                from user_script import add_numbers
+import pytest
+from user_script import add_numbers
 
-                def test_add_numbers():
-                    assert add_numbers(2, 3) == 5
-                    assert add_numbers(-1, 1) == 0
-                    assert add_numbers(0, 0) == 0
-                """
-
-            # Create a temporary directory to store the user script
-            temp_dir = tempfile.mkdtemp()
-            script_path = os.path.join(temp_dir, "user_script.py")
-            test_path = os.path.join(temp_dir, "test_script.py")
-
-            try:
-                # Write the user's function to a temporary file
-                with open(script_path, "w") as script_file:
-                    script_file.write(user_code)
-
-                # Write the pytest test case to a temporary file
-                with open(test_path, "w") as test_file:
-                    test_file.write(test_code)
-
-                # Run pytest and capture the results
-                result = os.popen(f"pytest {test_path} --tb=short --disable-warnings").read()
-
-                if "failed" in result:
-                    return render(request, "random_problem.html", {
-                            "status": "error",
-                            "message": "Test failed",
-                            "course_name": "python",
-                            "details": result})
-                else:
-                        return render(request, "random_problem.html", {"status": "success",
-                                                                    "course_name": "python", "message": "Test passed"})
-            finally:
-                # Clean up temporary files
-                os.remove(script_path)
-                os.remove(test_path)
-                shutil.rmtree(temp_dir, ignore_errors=True)
-
-        elif type_of_problem == "2":
-            # Define the test case as a string
+def test_add_numbers():
+    assert add_numbers(2, 3) == 5
+    assert add_numbers(-1, 1) == 0
+    assert add_numbers(0, 0) == 0
+            """
+        elif type_of_problem == "div":
             test_code = f"""
-                import pytest
-                from user_script import add_numbers
+import pytest
+from user_script import div_numbers
 
-                def test_add_numbers():
-                    assert add_numbers(6, 3) == 2
-                    assert add_numbers(-1, 1) == -1
-                    assert add_numbers(10, 2) == 5
-                """
+def test_div_numbers():
+    assert div_numbers(6, 2) == 3
+    assert div_numbers(10, 5) == 2
+    assert div_numbers(9, 3) == 3
+            """
+        elif type_of_problem == "even":
+            test_code = f"""
+import pytest
+from user_script import even_numbers
 
-            # Create a temporary directory to store the user script
-            temp_dir = tempfile.mkdtemp()
-            script_path = os.path.join(temp_dir, "user_script.py")
-            test_path = os.path.join(temp_dir, "test_script.py")
+def test_even_numbers():
+    a = [1, 4, 7, 2, 10, 45, 22, 100]  # Input list
+    expected_result = [4, 2, 10, 22, 100]  # Expected output
+    assert even_numbers(a) == expected_result  # Assert the equality
+            """
+        elif type_of_problem == "Simple_Calculator":
+            test_code = f"""
+import pytest
+from user_script import Simple_Calculator
 
-            try:
-                # Write the user's function to a temporary file
-                with open(script_path, "w") as script_file:
-                    script_file.write(user_code)
+def test_Simple_Calculator():
+    assert Simple_Calculator(3,5,"*") == 15
+    assert Simple_Calculator(3,5,"+") == 8
+    assert Simple_Calculator(3,5,"-") == -2 
+            """
+        elif type_of_problem == "LargestofThreeNumbers":
+            test_code = f"""
+import pytest
+from user_script import Largest_of_Three_Numbers
 
-                # Write the pytest test case to a temporary file
-                with open(test_path, "w") as test_file:
-                    test_file.write(test_code)
+def test_Largest_of_Three_Numbers():
+    a = [2,7,8,10,17]
+    assert Largest_of_Three_Numbers(a) == [17,10,8]
+            """
+        # Create a temporary directory to store the user script
+        temp_dir = tempfile.mkdtemp()
+        script_path = os.path.join(temp_dir, "user_script.py")
+        test_path = os.path.join(temp_dir, "test_script.py")
 
-                # Run pytest and capture the results
-                result = os.popen(f"pytest {test_path} --tb=short --disable-warnings").read()
+        try:
+            # Write the user's function to a temporary file
+            with open(script_path, "w") as script_file:
+                script_file.write(user_code)
 
-                if "failed" in result:
-                    return render(request, "random_problem.html", {
-                            "status": "error",
-                            "message": "Test failed",
-                            "course_name": "python",
-                            "details": result})
-                else:
-                        return render(request, "random_problem.html", {"status": "success",
-                                                                    "course_name": "python", "message": "Test passed"})
-            finally:
-                # Clean up temporary files
-                os.remove(script_path)
-                os.remove(test_path)
-                shutil.rmtree(temp_dir, ignore_errors=True)
+            # Write the pytest test case to a temporary file
+            with open(test_path, "w") as test_file:
+                test_file.write(test_code)
 
+            # Run pytest using subprocess
+            result = subprocess.run(
+                ["pytest", test_path, "--tb=short", "--disable-warnings"],
+                capture_output=True,
+                text=True
+            )
+            print(result)
+
+            # Check the exit code of pytest
+            if result.returncode == 0:
+                return render(request, "random_problem.html", {
+                    "status": "success",
+                    "course_name": "python",
+                    "message": f"Test passed for {type_of_problem}"
+                })
+            else:
+                return render(request, "random_problem.html", {
+                    "status": "error",
+                    "message": f"Test failed for {type_of_problem}",
+                    "course_name": "python",
+                    "type": type_of_problem,
+                    "details": result.stdout  # Show detailed test failure
+                })
+        finally:
+            # Clean up temporary files
+            os.remove(script_path)
+            os.remove(test_path)
+            shutil.rmtree(temp_dir, ignore_errors=True)
 
     return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
+
+
+
+def type_of_problem(request):
+    course_name = request.GET.get("course_name")
+    print(course_name)
+    return render(request, "type_of_problem.html",{
+        "course_name": course_name
+    })
+

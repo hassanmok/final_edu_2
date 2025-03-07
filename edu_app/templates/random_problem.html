@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <title>challenges</title>
+    <title>Random problem</title>
     <link rel="icon" type="image/png" sizes="512x512" href="{% static 'images/spider_logo2.png' %}">
 </head>
 <body>
@@ -44,29 +44,83 @@
     {% if course_name == "python" %}
         <div>
             <h1>{{ course_name }}</h1>
-            <!--
-            
-            {% for i in ff %}
-                <h1> {{ i.course_problems }}</h1>
-            {% endfor %}
-            
-            -->
+            {% if type_of_problem == "sum" %}
             <h1>Write function for sum two variable and return it: </h1>
-            <form action="{% url 'test_code' %}?type=sum" method="post">
+            <form action="{% url 'test_code' %}" method="post">
                 {% csrf_token %}
-                <textarea style="border: 2px solid black; margin-left: 20px;" name="user_code" id="" cols="80" rows="20">def add_numbers(a,b):
+                <textarea style="border: 2px solid black; margin-left: 20px;" name="user_code" id="" cols="80" rows="20">def add_numbers(a, b):
                     </textarea>
+                    <input type="hidden" name="type" value="{{ type_of_problem }}">
                 <button>Done</button>
             </form>
+            {% endif %}
+            {% if type_of_problem == "div" %}
+            <h1>Write function for div two variable and return it: </h1>
+            <form action="{% url 'test_code' %}" method="post">
+                {% csrf_token %}
+                <textarea style="border: 2px solid black; margin-left: 20px;" name="user_code" id="" cols="80" rows="20">def div_numbers(a, b):
+                    </textarea>
+                    <input type="hidden" name="type" value="{{ type_of_problem }}">
+                <button>Done</button>
+            </form>
+            {% endif %}
+            {% if type_of_problem == "even" %}
+            <h1>Write function for sort the even numbers in the array and return it, a is a random number in array: </h1>
+            <form action="{% url 'test_code' %}" method="post">
+                {% csrf_token %}
+                <textarea style="border: 2px solid black; margin-left: 20px;" name="user_code" id="" cols="80" rows="20">def even_numbers(a):
+                    </textarea>
+                    <input type="hidden" name="type" value="{{ type_of_problem }}">
+                <button>Done</button>
+            </form>
+            {% endif %}
+            {% if type_of_problem == "LargestofThreeNumbers" %}
+            <h1>Write function for return largest three number in list: </h1>
+            <form action="{% url 'test_code' %}" method="post">
+                {% csrf_token %}
+                <textarea style="border: 2px solid black; margin-left: 20px;" name="user_code" id="" cols="80" rows="20">def Largest_of_Three_Numbers(a):
+                    </textarea>
+                    <input type="hidden" name="type" value="{{ type_of_problem }}">
+                <button>Done</button>
+            </form>
+            {% endif %}
+            {% if type_of_problem == "Simple_Calculator" %}
+            <h1>Write simple calculator, of two variable and the thired is operator, and return the value of operation:</h1>
+            <br>
+            <h1>for example:
+                <br>
+                Simple_Calculator(2,3,*) == 6
+                <br>
+                Simple_Calculator(4,6,+) == 10
+
+            </h1>
+            <form action="{% url 'test_code' %}" method="post">
+                {% csrf_token %}
+                <textarea style="border: 2px solid black; margin-left: 20px;" name="user_code" id="" cols="80" rows="20">def Simple_Calculator(a,b,x):
+                    </textarea>
+                    <input type="hidden" name="type" value="{{ type_of_problem }}">
+                <button>Done</button>
+            </form>
+            {% endif %}
         </div>
         <div>
             
             {% if status == "error" %}
                 <h1> {{ status }} </h1>
                 <h1>test failed try again</h1>
+                <a href="{% url 'random_problem' %}?type={{ type }}&course_name={{ course_name }}">
+                    <h1>click here</h1>
+                </a>
             {% elif status == "success" %}
                 <h1> {{ status }} </h1>
                 <h1>good jop test passed !!!</h1>
+            {% endif %}
+            {% if type_of_problem == None %}
+            <a href="{% url 'type_of_problem'%}?course_name={{ course_name }}">
+
+                <h1>return to problems</h1>
+
+            </a>
             {% endif %}
 
         </div>

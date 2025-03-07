@@ -18,4 +18,5 @@ urlpatterns = [
     path("result", views.result, name="result"),
     path("random_problem", views.random_problem, name="random_problem"),
     path("test_code", views.test_code, name="test_code"),
+    path("type_of_problem", views.type_of_problem, name="type_of_problem"),
 ]
