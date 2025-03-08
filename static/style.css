@@ -389,8 +389,6 @@ body {
 
 .CodeMirror {
   border: 2px solid black;
-  margin-left: 20px;
-  margin-right: 200px;
   height: 300px;
 }
 

@@ -47,11 +47,14 @@
         </div>
     </div>
     {% if course_name == "python" %}
-        <div>
-            <h1>{{ course_name }}</h1>
+        <div class="flex m-10">
             {% if type_of_problem == "sum" %}
-            <h1>Write function for sum two variable and return it: </h1>
-            <form action="{% url 'test_code' %}" method="post">
+            <div id="document" style="margin-right: 20px; width: 50rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div style="height: 30rem; border: 1px solid black; padding: 5px; background-color: #D9D9D9;"> 
+                    <h1>Write function for sum two variable and return it: </h1>
+                </div>      
+            </div>
+            <form action="{% url 'test_code' %}" method="post" style="width: 35rem;">
                 {% csrf_token %}
                 <textarea name="user_code" id="editor">def add_numbers(a, b):</textarea>
                 <input type="hidden" name="type" value="{{ type_of_problem }}">
@@ -60,8 +63,12 @@
             </form>
             {% endif %}
             {% if type_of_problem == "div" %}
-            <h1>Write function for div two variable and return it: </h1>
-            <form action="{% url 'test_code' %}" method="post">
+            <div id="document" style="margin-right: 20px; width: 50rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div style="height: 30rem; border: 1px solid black; padding: 5px; background-color: #D9D9D9;"> 
+                    <h1>Write function for div two variable and return it: </h1>
+                </div>      
+            </div>
+            <form action="{% url 'test_code' %}" method="post" style="width: 35rem;">
                 {% csrf_token %}
                 <textarea name="user_code" id="editor">def div_numbers(a, b):</textarea>
                 <input type="hidden" name="type" value="{{ type_of_problem }}">
@@ -70,8 +77,14 @@
             </form>
             {% endif %}
             {% if type_of_problem == "even" %}
-            <h1>Write function for sort the even numbers in the array and return it, a is a random number in array: </h1>
-            <form action="{% url 'test_code' %}" method="post">
+            <div id="document" style="margin-right: 20px; width: 50rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div style="height: 30rem; border: 1px solid black; padding: 5px; background-color: #D9D9D9;"> 
+
+                <h1>Write function for sort the even numbers in the array and return it, a is a random number in array: </h1>
+
+                </div>      
+            </div>
+            <form action="{% url 'test_code' %}" method="post" style="width: 35rem;">
                 {% csrf_token %}
                 <textarea name="user_code" id="editor">def even_numbers(a):</textarea>
                 <input type="hidden" name="type" value="{{ type_of_problem }}">
@@ -79,35 +92,58 @@
                 <button id="runCodeBtn" class="run-btn">Run Code</button>
             </form>
             {% endif %}
-            {% if type_of_problem == "LargestofThreeNumbers" %}
-            <h1>Write a function to return the largest three numbers in a list:</h1>
-    
-            <form action="{% url 'test_code' %}" method="post">
-                {% csrf_token %}
-                <textarea name="user_code" id="editor">def Largest_of_Three_Numbers(a):</textarea>
-                <input type="hidden" name="type" value="{{ type_of_problem }}">
-                <br>
-                <button id="runCodeBtn" class="run-btn">Run Code</button>
-            </form>
-            {% endif %}
-            {% if type_of_problem == "Simple_Calculator" %}
-            <h1>Write simple calculator, of two variable and the thired is operator, and return the value of operation:</h1>
-            <br>
-            <h1>for example:
-                <br>
-                Simple_Calculator(2,3,*) == 6
-                <br>
-                Simple_Calculator(4,6,+) == 10
 
-            </h1>
-            <form action="{% url 'test_code' %}" method="post">
-                {% csrf_token %}
-                <textarea name="user_code" id="editor">def Simple_Calculator(a,b,x):</textarea>
-                <input type="hidden" name="type" value="{{ type_of_problem }}">
-                <br>
-                <button id="runCodeBtn" class="run-btn">Run Code</button>
-            </form>
-            {% endif %}
+                {% if type_of_problem == "LargestofThreeNumbers" %}
+
+                <div id="document" style="margin-right: 20px; width: 50rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div style="height: 30rem; border: 1px solid black; padding: 5px; background-color: #D9D9D9;"> 
+                        <h1>Write a function to return the largest three numbers in a list:</h1>
+                        <br>
+                        <h1>Example:</h1>
+                        <br>
+                        <h1>numbers = [10, 4, 3, 50, 23, 90]</h1>
+                        <br>
+                        <h1># Output: [90, 50, 23]</h1>
+                    </div>      
+                </div>
+
+            
+
+                <form action="{% url 'test_code' %}" method="post" style="width: 35rem;">
+                    {% csrf_token %}
+                    <textarea cols="20" name="user_code" id="editor">def Largest_of_Three_Numbers(a):</textarea>
+                    <input type="hidden" name="type" value="{{ type_of_problem }}">
+                    <br>
+                    <button id="runCodeBtn" class="run-btn">Run Code</button>
+                </form>
+                {% endif %}
+
+            
+    
+            {% if type_of_problem == "Simple_Calculator" %}
+            <div id="document" style="margin-right: 20px; width: 50rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div style="height: 30rem; border: 1px solid black; padding: 5px; background-color: #D9D9D9;"> 
+
+                    <h1>Write simple calculator, of two variable and the thired is operator, and return the value of operation:</h1>
+                    <br>
+                    <h1>for example:
+                        <br>
+                        Simple_Calculator(2,3,*) == 6
+                        <br>
+                        Simple_Calculator(4,6,+) == 10
+        
+                    </h1>
+                </div>      
+            </div>
+
+                <form action="{% url 'test_code' %}" method="post" style="width: 35rem;">
+                    {% csrf_token %}
+                    <textarea name="user_code" id="editor">def Simple_Calculator(a,b,x):</textarea>
+                    <input type="hidden" name="type" value="{{ type_of_problem }}">
+                    <br>
+                    <button id="runCodeBtn" class="run-btn">Run Code</button>
+                </form>
+                {% endif %}
         </div>
         <div>
             
