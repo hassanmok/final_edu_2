@@ -80,6 +80,17 @@
           </div>
         </div>
         {% endfor %}
+
+        <div style="display: flex; justify-content: center;" class="mb-4">
+          <a href="{% url 'courses' %}">
+          <h1 class="rounded-xl text-2xl" style="color: white; background-color: black; padding: 8px;">Return to the courses page</h1>
+          </a>
+        </div>
+        <div style="display: flex; justify-content: center;" class="mb-8">
+          <a href="{% url 'test' %}">
+            <h1 class="rounded-xl text-2xl" style="color: white; background-color: black; padding: 8px;">Return to the test page</h1>
+          </a>
+        </div>
     </div>
 
 <script src="{% static 'script.js' %}"></script>

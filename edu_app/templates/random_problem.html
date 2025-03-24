@@ -56,6 +56,7 @@
             </div>
             <form action="{% url 'test_code' %}" method="post" style="width: 35rem;">
                 {% csrf_token %}
+                <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
                 <textarea name="user_code" id="editor">def add_numbers(a, b):</textarea>
                 <input type="hidden" name="type" value="{{ type_of_problem }}">
                 <br>
@@ -80,7 +81,7 @@
             <div id="document" style="margin-right: 20px; width: 50rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div style="height: 30rem; border: 1px solid black; padding: 5px; background-color: #D9D9D9;"> 
 
-                <h1>Write function for sort the even numbers in the array and return it, a is a random number in array: </h1>
+                    <h1>Write function for sort the even numbers in the array and return it, a is a random number in array: </h1>
 
                 </div>      
             </div>
@@ -145,22 +146,27 @@
                 </form>
                 {% endif %}
         </div>
-        <div>
+        <div style="display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        justify-content: center; /* Center vertically */
+        align-items: center; /* Center horizontally */
+        height: 50vh; /* Full viewport height */
+        text-align: center; /* Center text */">
             
             {% if status == "error" %}
-                <h1> {{ status }} </h1>
-                <h1>test failed try again</h1>
+                <h1 style="font-size: 8rem;"> {{ status }} </h1>
+                <h1 style="font-size: 2rem; margin-bottom: 10px;">test failed try again</h1>
                 <a href="{% url 'random_problem' %}?type={{ type }}&course_name={{ course_name }}">
-                    <h1>click here</h1>
+                    <h1 style="font-size: 2rem; margin-bottom: 10px;" class="btn btn-warning">click here</h1>
                 </a>
             {% elif status == "success" %}
-                <h1> {{ status }} </h1>
-                <h1>good jop test passed !!!</h1>
+                <h1 style="font-size: 8rem;"> {{ status }} </h1>
+                <h1 style="font-size: 2rem; margin-bottom: 10px;">good jop test passed !!!</h1>
             {% endif %}
             {% if type_of_problem == None %}
             <a href="{% url 'type_of_problem'%}?course_name={{ course_name }}">
 
-                <h1>return to problems</h1>
+                <h1 style="font-size: 2rem;" class="btn btn-primary">return to problems</h1>
 
             </a>
             {% endif %}

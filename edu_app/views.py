@@ -300,6 +300,7 @@ def test_Largest_of_Three_Numbers():
 
             # Check the exit code of pytest
             if result.returncode == 0:
+                
                 return render(request, "random_problem.html", {
                     "status": "success",
                     "course_name": "python",

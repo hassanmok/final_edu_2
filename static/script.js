@@ -8,7 +8,16 @@ document.addEventListener("DOMContentLoaded", function () {
     autoRefresh: true
   });
 
+  
+
+
 });
+
+
+
+
+// Function to get CSRF token for Django requests
+
 
 
 /*
